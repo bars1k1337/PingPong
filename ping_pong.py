@@ -14,6 +14,20 @@ class GameSprite(sprite.Sprite):
         mw.blit(self.image,(self.rect.x, self.rect.y))
 
 
+class Player(GameSprite):
+    def update_r(self):
+        key = key.get_pressed()
+        if key[UP] and self.rect.y < 0:
+            self.rect.y -= self.speed
+        if key[DOWN] and self.rect.y > width- 80:
+            self.rect.y += self.speed
+    def update_l(self):
+        if key[K_w] and self.rect.y < 0:
+            self.rect.y -= self.speed
+        if key[K_y] and self.rect.y > width- 80:
+            self.rect.y += self.speed
+    
+
 
 width = 600
 height = 600

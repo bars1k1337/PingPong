@@ -44,6 +44,11 @@ finish = False
 speed_x = 3
 speed_y = 3
 
+font1 = font.SysFont("verdana", 35)
+lose1 = Font1.render("1 PLAYER LOSE", True,(180, 0, 0))
+
+lose2 = Font2.render("2 PLAYER LOSE", True,(180, 0, 0))
+
 while game:
     for e in event.get():
             if e.type == QUIT:
@@ -51,9 +56,24 @@ while game:
     if finish != True:
         ball.rect.x += speed_x
         ball.rect.y += speed_y
-
-    if ball.rect.y > width - 50 or ball.rect.y < 0:
+    ball.update()  
+    
+    if ball.rect.y > height - 50 or ball.rect.y < 0:
         speed_y *= -1
-     ball.update()   
+        
+    if sprite.colide_rect(racket1, ball) or sprite.colide_rect(racket2, ball):
+        speed_y *= -1
+
+    if ball.rect_x > 0:
+        finish = True
+        window.blit(lose1, (200, 200))
+        
+    if ball.rect_x > width:
+        finish = True
+        window.blit(lose2, (200, 200))
+
+    racket1.update_r()
+    racket2.update_l()
+
     display.update()
     clock.tick(FPS)
